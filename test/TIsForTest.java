@@ -101,21 +101,15 @@ public class TIsForTest {
     private Document doc;
 
     @Test
-    public void Test() throws MalformedURLException {
+    public void Test() throws Exception {
         try{
-            Double d = 14.567;
-
-            long l = (Long)d.intValue();
 
             String path = MessageFormat.format("{0}books.xml",
                 getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 
-            URL url = new URL("http://www.gazeta.ru/nm2015//gzt/img/logo.png");
-            FileURLConnection connection = (FileURLConnection)url.openConnection();
 
             XMLReader reader = XMLReaderFactory.createXMLReader();
             reader.setContentHandler(new DummyHandler());
-            String xml = "<html><head><title>title</title></head><body>&amp;</body></html>";
             File file = new File(path);
             reader.parse(new InputSource(new FileInputStream(file)));
 
@@ -129,8 +123,11 @@ public class TIsForTest {
     public class DummyHandler implements ContentHandler
     {
         private XMLStreamWriter writer;
-        public DummyHandler() throws FileNotFoundException, XMLStreamException {
-            OutputStream out = new FileOutputStream("C:\\data.xml");
+        public DummyHandler() throws IOException, XMLStreamException {
+            File file = File.createTempFile("temp", ".xml");
+            System.out.println(file.getAbsolutePath());
+            OutputStream out = new FileOutputStream(file);
+
             XMLOutputFactory factory = XMLOutputFactory.newInstance();
             writer = factory.createXMLStreamWriter(out);
         }
@@ -167,6 +164,8 @@ public class TIsForTest {
             System.out.println("");
         }
 
+        private boolean skipElement;
+
         public void startElement (String uri, String localName,
             String qName, Attributes atts)
             throws SAXException  {
@@ -174,7 +173,13 @@ public class TIsForTest {
             System.out.println(localName);
 
             if(atts.getValue("id") != null) {
-                localName = "newElement";
+                try {
+                    writer.writeCharacters("New characters".toCharArray(), 0, "New characters".length());
+                } catch (XMLStreamException e) {
+                    e.printStackTrace();
+                }
+                skipElement = true;
+                return;
             }
 
             try {
@@ -188,6 +193,11 @@ public class TIsForTest {
             String qName)
             throws SAXException {
             try {
+                if(skipElement) {
+                    skipElement = false;
+                    return;
+                }
+
                 writer.writeEndElement();
             } catch (XMLStreamException e) {
                 e.printStackTrace();
@@ -213,59 +223,6 @@ public class TIsForTest {
 
         public void skippedEntity (String name)
             throws SAXException {
-        }
-    }
-
-    private class XMLFilterEntityImpl extends XMLFilterImpl implements LexicalHandler {
-
-        private String currentEntity = null;
-
-        public XMLFilterEntityImpl(XMLReader reader) throws SAXNotRecognizedException, SAXNotSupportedException {
-            super(reader);
-            setProperty("http://xml.org/sax/properties/lexical-handler", this);
-
-        }
-
-        @Override
-        public void characters(char[] ch, int start, int length)
-            throws SAXException {
-            super.characters(ch, start, length);
-            currentEntity = null;
-        }
-
-        @Override
-        public void startEntity(String name) throws SAXException {
-            currentEntity = name;
-        }
-
-        @Override
-        public void endEntity(String name) throws SAXException {
-            System.out.println("endEntity");
-        }
-
-        @Override
-        public void startDTD(String name, String publicId, String systemId) throws SAXException {
-            System.out.println("startDTD");
-        }
-
-        @Override
-        public void endDTD() throws SAXException {
-            System.out.println("endDTD()");
-        }
-
-        @Override
-        public void startCDATA() throws SAXException {
-            System.out.println("startCDATA()");
-        }
-
-        @Override
-        public void endCDATA() throws SAXException {
-            System.out.println("endCDATA()");
-        }
-
-        @Override
-        public void comment(char[] ch, int start, int length) throws SAXException {
-            System.out.println("comment");
         }
     }
 }
