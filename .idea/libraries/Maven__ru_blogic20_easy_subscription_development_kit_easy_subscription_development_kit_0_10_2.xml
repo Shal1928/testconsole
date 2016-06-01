@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: ru.blogic20.easy_subscription_development_kit:easy-subscription-development-kit:0.10.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ru/blogic20/easy_subscription_development_kit/easy-subscription-development-kit/0.10.2/easy-subscription-development-kit-0.10.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/ru/blogic20/easy_subscription_development_kit/easy-subscription-development-kit/0.10.2/easy-subscription-development-kit-0.10.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/ru/blogic20/easy_subscription_development_kit/easy-subscription-development-kit/0.10.2/easy-subscription-development-kit-0.10.2-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../VANKOR Project/Subscriptions/EasySubscriptionDevelopmentKit/trunk/src/main/java" />
+    </SOURCES>
+  </library>
+</component>
