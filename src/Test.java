@@ -14,27 +14,38 @@ import java.util.LinkedList;
  */
 public class Test {
 
-    static int p = method();
-    static int q = 10;
+    public static final String CONST = "Const yes!";
 
-    private static int method() {
-        return p;
+    public static Object checkNull = null;
+
+    public Test() {
+        checkNull = new Object();
+    }
+
+    public static String staticMethod() {
+        return "Static method yes!";
+    }
+
+    public static boolean isNull() {
+        return checkNull == null;
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, ParseException {
 
         try {
-            GeneralSettings gs = new GeneralSettings();
-            LinkedList<String> ls = new LinkedList<String>();
-            ls.add("s1");
-            ls.add("s2");
-            gs.setObjects(ls.toArray());
+            //1
+            Test nullObj = null;
+            System.out.println(nullObj.CONST);
+            System.out.println(nullObj.staticMethod());
+            //2
+            System.out.println(((Test) null).CONST);
+            System.out.println(((Test) null).staticMethod());
 
-            gs.setEnumVal(TestEnum.DOC);
-            gs.setTypeID(1);
+            Test test = new Test();
+            System.out.println(test.isNull());
 
-            JAXBContext context = JAXBContext.newInstance(GeneralSettings.class);
-            context.createMarshaller().marshal(gs, new File("C:\\test.xml"));
+            Test test1 = null;
+            System.out.println(test.isNull());
 
         } catch (Exception e) {
             e.printStackTrace();
