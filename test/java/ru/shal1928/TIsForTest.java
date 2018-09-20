@@ -1,19 +1,5 @@
-import javafx.print.Collation;
 import org.junit.Test;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import others.ListRecord;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.*;
-import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
