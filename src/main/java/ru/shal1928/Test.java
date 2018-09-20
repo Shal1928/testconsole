@@ -9,13 +9,11 @@ import java.text.ParseException;
  */
 public class Test {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, ParseException {
-
-        try {
-
+    public static void main(String[] args){
+        try{
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 }
