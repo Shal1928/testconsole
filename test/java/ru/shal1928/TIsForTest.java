@@ -1,3 +1,5 @@
+package ru.shal1928;
+
 import org.junit.Test;
 
 import java.util.regex.Matcher;
